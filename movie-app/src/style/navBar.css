@@ -4,15 +4,11 @@
     color: rgb(78, 72, 107);
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
+ .heading:hover{
+  color: rgba(123, 0, 255, 0.5);
+ }
   .form-control{
     height: 30px;
-    width: 180px;
+    width: 380px;
   }
-  .card-container {
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .card:hover {
-    transform: scale(1.1);
-    z-index: 1;
-  }
+ 

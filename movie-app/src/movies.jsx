@@ -1,13 +1,14 @@
 // Movies.js
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
-import './App.css';
+import './style/App.css';
 import MovieGrid from "../src/componants/MovieGrid";
 import MovieHeading from "../src/componants/movieheading"
 import SearchMovie from "./componants/search";
 import { Route, Routes } from "react-router-dom";
 import MovieDetail from "./MovieDeteil";
 import './style/navBar.css'
+import AddFavourite from "./componants/addFav";
 
 const Movies = () => {
   const [movies, setMovies] = useState([
@@ -153,10 +154,13 @@ const Movies = () => {
   "Poster": "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg"
 },
   ]);
+
   const [searchmovies, setSearchMovies] = useState('');
 
+
   const getMovieApi = async (searchmovies) => {
-    const url = `https://www.omdbapi.com/?s=${searchmovies}&apikey=55e93a9a`;
+    const ApiKey= '55e93a9a';
+    const url = `https://www.omdbapi.com/?s=${searchmovies}&apikey=${ApiKey}`;
     const response = await fetch(url);
     const responseJason = await response.json();
 
@@ -167,22 +171,22 @@ const Movies = () => {
 
   // useEffect(() => {
   //   getMovieApi();
-  // }, []);
-  useEffect(() => {
+  // }, []);//get movie request when page loading whenever we add in search bar 
+  useEffect(() => { //the first thing reander because hooks alwayes called when on the first render  
     getMovieApi(searchmovies);
   }, [searchmovies]);
 
 
   return (
     <div className='container-fluid movie-app'>
-      <div className="row d-flex align-items-center mt-2 mb-2 heading"> {/* Apply the 'heading' class */}
+      <div className="row d-flex align-items-center mt-2 mb-2 heading">
         <MovieHeading heading='Mos3ad best'/>
         <SearchMovie searchmovies={searchmovies} setSearchMovies={setSearchMovies} />
       </div>
       <div className="row">
         <Routes>
           <Route>
-            <Route path="/" element={<MovieGrid movies={movies} />} />
+            <Route path="/" element={<MovieGrid movies={movies} favouriteMovie={AddFavourite} />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
           </Route>
         </Routes>
